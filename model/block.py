@@ -6,6 +6,7 @@ from model.point import Point
 
 class Block:
 
+    # UN USED VALUE
     COLOR_0 = (0, 0, 0)
     BLOCK_0 = [
         [
@@ -197,7 +198,8 @@ class Block:
     BLOCKS = [BLOCK_0, BLOCK_1, BLOCK_2, BLOCK_3, BLOCK_4, BLOCK_5, BLOCK_6, BLOCK_7, BLOCK_8]
     COLORS = [COLOR_0, COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5, COLOR_6, COLOR_7, COLOR_8]
 
-    def __init__(self, board_w, y=0):
+    def __init__(self, board_h, board_w, y=0):
+        self.board_h = board_h
         self.board_w = board_w
         self.id = random.randint(1, 7)
         self.rotation = 0

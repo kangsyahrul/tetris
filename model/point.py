@@ -17,6 +17,9 @@ class Point:
     def move_down(self):
         self.y = self.y + 1
 
+    def __eq__(self, __o: object) -> bool:
+        return self.x == __o.x and self.y == __o.y
+
     def __copy__(self):
         return self
 
