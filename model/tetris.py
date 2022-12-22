@@ -23,12 +23,15 @@ class Tetris(py_environment.PyEnvironment):
 
     # 0: left, 1: right, 2: rotate (clockwise), 3: drop
     self._action_spec = array_spec.BoundedArraySpec(shape=(), dtype=np.int32, minimum=0, maximum=3, name='action')
-    self._observation_spec = array_spec.BoundedArraySpec(shape=self.board.state.shape, dtype=np.int32, minimum=0, maximum=7, name='board')
+    self._observation_spec = array_spec.BoundedArraySpec(shape=self.board.state.shape, dtype=np.int32, minimum=0, maximum=1, name='board')
 
   def init_board(self):
     self.board = Board(self.WINDOW_SIZE, self.PADDING, self.BOARD, self.BLOCK_SIZE)
     self._state = self.board.state
     self._episode_ended = False
+
+  def render(self):
+    return self.board.render()
 
   def _reset(self):
     self.init_board()
@@ -42,8 +45,6 @@ class Tetris(py_environment.PyEnvironment):
 
   def _step(self, action):
     if self._episode_ended:
-      # The last action ended the episode. Ignore the current action and start
-      # a new episode.
       return self.reset()
 
     # Make sure episodes don't go on forever.
@@ -56,8 +57,8 @@ class Tetris(py_environment.PyEnvironment):
     else:
         raise ValueError(f'Unrecognized action for "{action}"')
 
-    return ts.termination(self._state, reward=reward)
-    # if self._episode_ended:
+    if self._episode_ended:
+      return ts.termination(self._state, reward=reward)
 
-    # else:
-    #     return ts.transition(self._state, reward=reward, discount=1.0)
+    else:
+        return ts.transition(self._state, reward=reward, discount=1.0)

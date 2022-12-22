@@ -101,7 +101,7 @@ def main():
 
         # Drop the block
         if key == ord(' ') and not is_game_over:
-            # # Drop
+            # Drop
             block.point = point_projection
             is_stuck = True
 
