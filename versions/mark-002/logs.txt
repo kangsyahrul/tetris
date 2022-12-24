@@ -1,0 +1,5 @@
+Iteration = 1000 | Total steps: 17-27-36 | Min: 0.12 | Avg: 1.08 | Max: 1.94 [CHECK POINT]
+Iteration = 2000 | Total steps: 17-27-52 | Min: 0.12 | Avg: 0.94 | Max: 2.36
+Iteration = 3000 | Total steps: 16-24-60 | Min: 0.10 | Avg: 0.73 | Max: 4.21
+Iteration = 1000 | Total steps: 23-29-41 | Min: 0.12 | Avg: 0.80 | Max: 1.76 [CHECK POINT]
+Iteration = 2000 | Total steps: 24-31-39 | Min: 0.85 | Avg: 1.61 | Max: 2.60 [CHECK POINT]

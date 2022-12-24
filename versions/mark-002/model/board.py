@@ -177,7 +177,7 @@ class Board:
         self.total_action += 1
 
         # Reward
-        reward = 0.01
+        reward = 0
 
         # Take an action
         if action == 0:
@@ -389,12 +389,10 @@ class Board:
 
         # Reward from block
         reward_block = 1
-        # print(f'reward_block: {reward_block}')
         reward += reward_block
 
         # Reward from lines removed
         reward_lines = lines_removed ** 2
-        # print(f'reward_lines: {reward_lines}')
         reward *= 1 + max(0, reward_lines * 10)
         
         # Holes punishment/reward
@@ -403,20 +401,14 @@ class Board:
         total_holes_before = np.sum(holes_before)
         total_holes_after = np.sum(holes_after)
         reward_holes = (total_holes_after - total_holes_before) / 2
-        # print(f'reward_holes: {reward_holes}')
-        reward *= 1 - min(0.9, reward_holes)
-        # print(f'reward: {reward}')
+        reward *= 1 - min(0.95, reward_holes)
         
         # Height punishment/reward
         heights_before = np.max(self.measure_heights(value_before))
         heights_after = np.max(self.measure_heights(value_after))
-        reward *= 1 - min(0.9, (heights_after - heights_before) / 4)
-        # print(f'self.measure_heights(value_before): {self.measure_heights(value_before)}')
-        # print(f'self.measure_heights(value_after): {self.measure_heights(value_after)}')
-        # print(f'heights_before: {heights_before}')
-        # print(f'heights_after: {heights_after}')
+        reward *= 1 - min(0.95, (heights_after - heights_before) / 3)
         
-        return block_score, max(0.02, reward)
+        return block_score, max(0.001, reward)
     
     def get_projection_point(self, block, point):
         p = Point(point.x, point.y)
@@ -433,9 +425,9 @@ class Board:
         if projection_point == self.block.point:
             self.is_game_over = True
         
-        holes = self.count_holes(self.value)
-        if np.max(holes) >= 4:
-            self.is_game_over = True
+        # holes = self.count_holes(self.value)
+        # if np.max(holes) >= 5:
+        #     self.is_game_over = True
 
         return self.is_game_over
     

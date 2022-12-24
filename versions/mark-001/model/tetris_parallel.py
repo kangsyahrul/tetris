@@ -4,14 +4,14 @@ from __future__ import print_function
 
 import numpy as np
 
-from tf_agents.environments import py_environment
+from tf_agents.environments import parallel_py_environment
 from tf_agents.specs import array_spec
 from tf_agents.trajectories import time_step as ts
 
 
 from model.board import Board
 
-class Tetris(py_environment.PyEnvironment):
+class Tetris(parallel_py_environment.ParallelPyEnvironment):
 
   def __init__(self, WINDOW_SIZE=(288, 528), PADDING=(24, 24), BOARD=(10, 20), BLOCK_SIZE=(24, 24)):
     self.WINDOW_SIZE = WINDOW_SIZE

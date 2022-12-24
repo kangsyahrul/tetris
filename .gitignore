@@ -1,4 +1,10 @@
+*.mp4
+**wheights
+**videos**
+*.imageio
+*.keras
 .idea/
+.bash_history
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
