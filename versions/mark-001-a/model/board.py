@@ -177,7 +177,7 @@ class Board:
         self.total_action += 1
 
         # Reward
-        reward = 0
+        reward = 0.01
 
         # Take an action
         if action == 0:
@@ -385,8 +385,11 @@ class Board:
         block_score   = params['block_score']
         lines_removed = params['lines_removed']
 
-        # Default reward
-        reward = 1
+        reward = 0
+
+        # Reward from block
+        reward_block = 1
+        reward += reward_block
 
         # Reward from lines removed
         reward_lines = lines_removed ** 2
@@ -398,15 +401,14 @@ class Board:
         total_holes_before = np.sum(holes_before)
         total_holes_after = np.sum(holes_after)
         reward_holes = (total_holes_after - total_holes_before) / 2
-        reward *= 1 - reward_holes
+        reward *= 1 - min(0.9, reward_holes)
         
         # Height punishment/reward
         heights_before = np.max(self.measure_heights(value_before))
         heights_after = np.max(self.measure_heights(value_after))
-        reward_heights = (heights_after - heights_before) / 5
-        reward *= 1 - reward_heights
+        reward *= 1 - min(0.9, (heights_after - heights_before) / 4)
         
-        return block_score, max(0.001, reward)
+        return block_score, max(0.02, reward)
     
     def get_projection_point(self, block, point):
         p = Point(point.x, point.y)
@@ -424,7 +426,7 @@ class Board:
             self.is_game_over = True
         
         holes = self.count_holes(self.value)
-        if np.max(holes) >= 3:
+        if np.max(holes) >= 5:
             self.is_game_over = True
 
         return self.is_game_over

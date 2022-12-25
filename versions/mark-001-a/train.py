@@ -54,8 +54,8 @@ num_iterations = 100_000_000
 collect_steps_per_iteration = 20
 replay_buffer_max_length = 500_000
 
-batch_size = 64
-learning_rate = 3e-4
+batch_size = 128
+learning_rate = 5e-5
 log_interval = 1_000
 
 num_eval_episodes = 10

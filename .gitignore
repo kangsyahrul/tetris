@@ -1,6 +1,7 @@
 *.mp4
 **wheights
 **videos**
+**checkpoint**
 *.imageio
 *.keras
 .idea/
